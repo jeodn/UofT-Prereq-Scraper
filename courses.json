@@ -1,0 +1,24 @@
+{
+  "courses": [
+    {
+      "id": "MAT102",
+      "name": "Introduction to Mathematical Proofs",
+      "prerequisites": ["Math101", "CS100"]
+    },
+    {
+      "id": "CS201",
+      "name": "Data Structures",
+      "prerequisites": ["CS101"]
+    },
+    {
+      "id": "Math101",
+      "name": "Calculus I",
+      "prerequisites": []
+    },
+    {
+      "id": "CS100",
+      "name": "Foundations of Computing",
+      "prerequisites": []
+    }
+  ]
+}
