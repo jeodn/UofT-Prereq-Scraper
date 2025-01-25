@@ -1,9 +1,17 @@
 {
   "courses": [
     {
-      "id": "MAT102",
+      "code": "MAT102",
       "name": "Introduction to Mathematical Proofs",
-      "prerequisites": ["Math101", "CS100"]
+      "prerequisites": [
+        "Math101",
+        "CS100"
+      ]
+    },
+    {
+      "code": "MAT202H5",
+      "title": "Introduction to Discrete Mathematics",
+      "prerequisites": "MAT102H5 and (MAT134H5 or MAT136H5 or MAT137Y5 or MAT139H5 or MAT157Y5 or MAT159H5 or MAT233H5)"
     }
   ]
 }

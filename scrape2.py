@@ -155,7 +155,7 @@ def get_course_info(html_content: str, course_code:str) -> dict:
             if prerequisites:
                 prerequisites = prerequisites.find_next('span').text.strip()
                 return {'Course': course_code, 
-                        'Title': title, 
+                        'Title': title.split(" • ")[1], 
                         'Prerequisites': prerequisites}
             else:
                 return "No prerequisites found for this course."
@@ -287,5 +287,5 @@ if __name__ == "__main__":
     """
 
     course_code = "MAT202H5"
-    prerequisites = get_prerequisite_text(html_content, course_code)
-    print(f"Prerequisites for {course_code}: {prerequisites}")
+    prerequisites = get_prerequisite_text(course_code)
+    print( get_course_info(html_content, course_code) )
