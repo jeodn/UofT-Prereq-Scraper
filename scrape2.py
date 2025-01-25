@@ -138,6 +138,9 @@ def get_course_info(html_content: str, course_code:str) -> dict:
 
     :param html_content: plaintext html file
     :param course_code: the course code
+
+    Preconditions: course_code is a valid course code. 
+    Otherwise, returns blank dict.
     """
     soup = BeautifulSoup(html_content, 'html.parser')
     
@@ -154,13 +157,15 @@ def get_course_info(html_content: str, course_code:str) -> dict:
             prerequisites = course_div.find('strong', string='Prerequisites: ')
             if prerequisites:
                 prerequisites = prerequisites.find_next('span').text.strip()
-                return {'Course': course_code, 
+                return {'Code': course_code, 
                         'Title': title.split(" • ")[1], 
                         'Prerequisites': prerequisites}
             else:
-                return "No prerequisites found for this course."
+                return {'Code': "", 
+                        'Title': "", 
+                        'Prerequisites': ""}
     
-    return "Course not found."
+    return {'Code': "", 'Title': "", 'Prerequisites': ""}
 
 
 if __name__ == "__main__":
