@@ -1,7 +1,7 @@
 import streamlit as st
 import numpy as np
 import pandas as pd
-from scrape_utm import get_prerequisites
+from scrape2 import get_prerequisite_text, get_course_title, html_content
 
 df = pd.DataFrame({
   'first column': [1, 2, 3, 4],
@@ -18,5 +18,6 @@ st.selectbox('cuck', ['a', 'b', 'c'])
 
 add_selectbox = st.sidebar.selectbox('yes', ('a', 'b', 'c'))
 
-course_inputted = st.text_input('Course code')
-st.write(get_prerequisites(course_inputted))
+course_inputted = st.text_input('Course code')  # Add select box to select campus, automatically add H5
+st.write(get_course_title(course_inputted))
+st.write(get_prerequisite_text(course_inputted))
