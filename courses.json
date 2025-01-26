@@ -2,7 +2,7 @@
   "courses": [
     {
       "code": "FOO223",
-      "name": "Introduction to Smelling Smalts",
+      "title": "Introduction to Smelling Smalts",
       "prerequisites": "Nothing"
     },
     {
@@ -239,16 +239,6 @@
       "code": "MAT492H5",
       "title": "Senior Thesis",
       "prerequisites": "MAT392H5 and 2.0 additional credits in MAT at the 300 level and a minimum CGPA of 2.5"
-    },
-    {
-      "code": "MAT497H5",
-      "title": "Further Studies in Mathematics",
-      "prerequisites": "Permission of instructor and department, a minimum CGPA of 3.5 and completion of at least 6.0 credits of MAT courses."
-    },
-    {
-      "code": "MAT498H5",
-      "title": "Further Studies in Mathematics",
-      "prerequisites": "Permission of instructor and department, a minimum CGPA of 3.5 and completion of at least 6.0 credits of MAT courses."
     }
   ]
 }
