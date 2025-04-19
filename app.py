@@ -1,29 +1,45 @@
-import streamlit as st
-import numpy as np
-import pandas as pd
+from typing import *
+from flask import Flask, render_template, jsonify
 import json
-from scrape2 import get_prerequisite_text, get_course_title, html_content
 
+app = Flask(__name__)
 
-def show_courses(filepath:str):
-  with open(filepath, 'r') as f:
-    data = json.load(f)
+with open("courses.json") as f:
+    COURSE_DATA = {c["code"]: c for c in json.load(f)["courses"]}
 
-  df = pd.json_normalize(data['courses'],
-                         meta=['code', 'title', 'prerequisites'])
-  
-  #df.columns = ['Code', 'Name', 'Prerequisites']
+def expand_course(code):
+    """Expand course code into its prerequisite tree recursively."""
+    course = COURSE_DATA.get(code)
+    if not course:
+        return {"name": f"{code} (Unknown)"}
 
-  df
+    prereq_list = course.get("prerequisites_list")
+    if not prereq_list:
+        return {"name": code}
 
+    return parse_prereq_tree(prereq_list)
 
-st.title('Mathematics Courses at UTM')
+def parse_prereq_tree(tree: Union[list[str], None]):
+    if isinstance(tree, str):
+        return {"name": tree}
 
-show_courses('courses.json')
+    if isinstance(tree, list):
+        op = tree[0]
+        children = [parse_prereq_tree(item) for item in tree[1:]]
+        return {"name": op.upper(), "children": children}
 
-# Add select box to select campus, automatically add H5
-st.markdown("## _I want to know the prerequisites for a course._")
-course_inputted = st.text_input('Course code:')  
-st.write("")
-st.markdown(f"**{get_course_title(course_inputted)}**")
-st.markdown(get_prerequisite_text(course_inputted))
+    return {}
+
+@app.route("/")
+def index():
+    return render_template("index.html")
+
+@app.route("/data/<course_code>")
+def get_prerequisites(course_code):
+    if course_code not in COURSE_DATA:
+        return jsonify({"error": "Course not found"}), 404
+
+    return jsonify(expand_course(course_code))
+
+if __name__ == "__main__":
+    app.run(debug=True)
